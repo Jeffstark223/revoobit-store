@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>REVOOBIT Wellness Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ===================== CSS VARIABLES ===================== */
+:root{
+  --primary:#111111;
+  --primary-light:#444444;
+  --primary-dark:#000000;
+  --accent:#333333;
+  --accent-light:#555555;
+  --bg:#FFFFFF;
+  --bg2:#F5F5F5;
+  --white:#FFFFFF;
+  --text:#111111;
+  --text-muted:#555555;
+  --border:#E0E0E0;
+  --shadow:0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg:0 12px 48px rgba(0,0,0,0.12);
+  --radius:14px;
+  --radius-sm:8px;
+  --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-display:'Playfair Display',serif;
+  --font-body:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+button{cursor:pointer;border:none;font-family:var(--font-body);}
+
+/* ===================== UTILITY ===================== */
+.container{max-width:1200px;margin:0 auto;padding:0 20px;}
+.section-pad{padding:80px 0;}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:var(--primary-dark);margin-bottom:12px;}
+.section-sub{color:var(--text-muted);font-size:1.05rem;max-width:520px;}
+.tag{display:inline-block;background:var(--bg2);color:var(--primary);font-size:0.78rem;font-weight:600;padding:5px 14px;border-radius:50px;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:12px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:50px;font-size:0.95rem;font-weight:600;transition:var(--transition);}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.btn-secondary{background:transparent;color:var(--primary);border:2px solid var(--primary);}
+.btn-secondary:hover{background:var(--primary);color:#fff;transform:translateY(-2px);}
+.btn-accent{background:var(--accent);color:#fff;}
+.btn-accent:hover{background:#e8913d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.15);}
+.btn-sm{padding:9px 20px;font-size:0.88rem;}
+.btn-whatsapp{background:#25D366;color:#fff;}
+.btn-whatsapp:hover{background:#1ebe5b;transform:translateY(-2px);}
+
+/* ===================== NAVBAR ===================== */
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(250,250,248,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:var(--transition);}
+.navbar.scrolled{box-shadow:var(--shadow);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+/* LOGO IMAGE PLACEHOLDER */
+/* Replace the div below with: <img src="your-logo.png" alt="REVOOBIT Logo" style="height:44px;width:auto;"> */
+.nav-logo-img{width:44px;height:44px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.1rem;letter-spacing:-0.5px;}
+.nav-logo-text{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--primary-dark);}
+.nav-logo-text span{color:var(--accent);}
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-links a{padding:8px 16px;border-radius:8px;font-size:0.92rem;font-weight:500;color:var(--text-muted);transition:var(--transition);}
+.nav-links a:hover,.nav-links a.active{color:var(--primary);background:var(--bg2);}
+.nav-actions{display:flex;align-items:center;gap:12px;}
+.cart-btn{position:relative;width:42px;height:42px;border-radius:10px;background:var(--bg2);display:flex;align-items:center;justify-content:center;transition:var(--transition);}
+.cart-btn:hover{background:var(--primary);color:#fff;}
+.cart-btn svg{width:20px;height:20px;}
+.cart-count{position:absolute;top:-5px;right:-5px;background:var(--accent);color:#fff;width:18px;height:18px;border-radius:50%;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.hamburger{display:none;flex-direction:column;gap:5px;width:38px;height:38px;align-items:center;justify-content:center;border-radius:8px;background:var(--bg2);transition:var(--transition);}
+.hamburger span{width:20px;height:2px;background:var(--text);border-radius:2px;transition:var(--transition);}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;width:100%;background:var(--white);border-bottom:1px solid var(--border);padding:16px 20px;flex-direction:column;gap:4px;z-index:999;box-shadow:var(--shadow-lg);}
+.mobile-menu a{padding:12px 16px;border-radius:8px;font-size:0.95rem;font-weight:500;color:var(--text);display:block;transition:var(--transition);}
+.mobile-menu a:hover{background:var(--bg2);color:var(--primary);}
+.mobile-menu.open{display:flex;}
+
+/* ===================== PAGES ===================== */
+.page{display:none;padding-top:68px;}
+.page.active{display:block;}
+
+/* ===================== HERO ===================== */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:#000;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.1) 100%);z-index:1;}
+.hero-bg-img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;}
+.hero-shapes{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;}
+.hero-shape{position:absolute;border-radius:50%;opacity:0.06;}
+.hero-shape-1{width:500px;height:500px;background:#ffffff;right:-100px;top:-100px;}
+.hero-shape-2{width:300px;height:300px;background:#ffffff;left:-80px;bottom:-80px;}
+.hero-content{position:relative;z-index:3;max-width:680px;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:7px 18px;border-radius:50px;font-size:0.82rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:24px;}
+.hero-tag::before{content:'✦';font-size:0.7rem;}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:700;line-height:1.15;color:#ffffff;margin-bottom:20px;}
+.hero-title em{font-style:italic;color:rgba(255,255,255,0.8);}
+.hero-tagline{font-size:1.1rem;color:rgba(255,255,255,0.82);line-height:1.7;margin-bottom:36px;max-width:480px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:32px;margin-top:52px;flex-wrap:wrap;}
+.hero-stat{}
+.hero-stat-num{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:#ffffff;}
+.hero-stat-label{font-size:0.82rem;color:rgba(255,255,255,0.72);margin-top:2px;}
+.hero-image-col{position:absolute;right:0;top:0;bottom:0;width:46%;z-index:0;display:flex;align-items:center;justify-content:center;}
+/* HERO SIDE IMAGE PLACEHOLDER */
+/* Replace hero-side-img div with: <img src="your-hero-product.png" alt="Wellness Products" style="max-height:85vh;object-fit:contain;"> */
+.hero-side-img{width:340px;height:400px;background:linear-gradient(135deg,rgba(82,183,136,0.1),rgba(0,0,0,0.06));border-radius:40px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.9rem;text-align:center;padding:20px;border:2px dashed var(--border);}
+
+/* ===================== FEATURED PRODUCTS ===================== */
+.products-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;gap:16px;flex-wrap:wrap;}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px;}
+.product-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;transition:var(--transition);position:relative;}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--primary-light);}
+.product-img-wrap{position:relative;padding-top:70%;background:var(--bg2);overflow:hidden;}
+.product-img-wrap img,.product-img-placeholder{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+/* PRODUCT IMAGE PLACEHOLDERS */
+/* For each product card, replace .product-img-placeholder with: <img src="product-image.jpg" alt="Product Name"> */
+.product-img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-muted);font-size:0.8rem;text-align:center;padding:12px;background:linear-gradient(135deg,#F5F5F5,#EEEEEE);}
+.product-img-placeholder svg{width:40px;height:40px;opacity:0.4;}
+.product-badge{position:absolute;top:12px;left:12px;background:var(--primary);color:#fff;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:0.04em;}
+.product-body{padding:18px;}
+.product-name{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--text);margin-bottom:6px;}
+.product-tagline{font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;line-height:1.5;}
+.product-price{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:14px;}
+.product-price span{font-size:0.8rem;color:var(--text-muted);font-weight:400;}
+.product-actions{display:flex;gap:8px;}
+.product-actions .btn{flex:1;justify-content:center;padding:10px 14px;font-size:0.85rem;}
+.add-cart-btn{background:var(--primary);color:#fff;}
+.add-cart-btn:hover{background:var(--primary-dark);}
+.view-btn{background:var(--bg2);color:var(--primary);}
+.view-btn:hover{background:var(--primary);color:#fff;}
+
+/* ===================== BENEFITS ===================== */
+.benefits{background:var(--white);}
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:48px;}
+.benefit-card{padding:32px 24px;border-radius:var(--radius);background:var(--bg);border:1px solid var(--border);text-align:center;transition:var(--transition);}
+.benefit-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--primary-light);}
+.benefit-icon{width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,#111111,#444444);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.6rem;}
+.benefit-title{font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:8px;color:var(--primary-dark);}
+.benefit-text{font-size:0.88rem;color:var(--text-muted);line-height:1.6;}
+
+/* ===================== TESTIMONIALS ===================== */
+.testimonials{background:var(--bg2);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px;}
+.testimonial-card{background:var(--white);border-radius:var(--radius);padding:28px;border:1px solid var(--border);transition:var(--transition);}
+.testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.stars{color:#F4A261;font-size:1rem;margin-bottom:14px;letter-spacing:2px;}
+.testimonial-text{font-size:0.92rem;color:var(--text-muted);line-height:1.7;margin-bottom:20px;font-style:italic;}
+.testimonial-author{display:flex;align-items:center;gap:12px;}
+.author-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#444444,#666666);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.9rem;}
+.author-name{font-weight:600;font-size:0.92rem;}
+.author-loc{font-size:0.8rem;color:var(--text-muted);}
+
+/* ===================== CONTACT STRIP ===================== */
+.contact-strip{background:linear-gradient(135deg,#000000,#222222);}
+.contact-strip .container{display:flex;align-items:center;justify-content:space-between;padding-top:60px;padding-bottom:60px;flex-wrap:wrap;gap:32px;}
+.contact-strip-text .section-title{color:#fff;}
+.contact-strip-text .section-sub{color:rgba(255,255,255,0.75);}
+.contact-info-list{display:flex;flex-direction:column;gap:14px;}
+.contact-info-item{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.9);font-size:0.95rem;}
+.contact-info-icon{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.contact-actions{display:flex;flex-direction:column;gap:12px;}
+
+/* ===================== FOOTER ===================== */
+footer{background:var(--primary-dark);color:rgba(255,255,255,0.8);padding:60px 0 0;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.footer-logo-box{width:40px;height:40px;background:var(--primary-light);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;}
+.footer-logo-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:#fff;}
+.footer-about{font-size:0.88rem;line-height:1.7;max-width:280px;margin-bottom:20px;}
+.social-links{display:flex;gap:10px;}
+.social-link{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:var(--transition);color:#fff;}
+.social-link:hover{background:var(--primary-light);}
+.footer-col h4{color:#fff;font-size:0.9rem;font-weight:600;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.05em;}
+.footer-col ul li{margin-bottom:10px;}
+.footer-col ul li a{font-size:0.88rem;color:rgba(255,255,255,0.65);transition:var(--transition);}
+.footer-col ul li a:hover{color:var(--primary-light);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding:20px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:0.82rem;color:rgba(255,255,255,0.5);}
+
+/* ===================== SHOP PAGE ===================== */
+.page-hero{background:linear-gradient(135deg,#F5F5F5,#EEEEEE);padding:60px 0 40px;}
+.page-hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);color:var(--primary-dark);margin-bottom:8px;}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:0.88rem;color:var(--text-muted);}
+.breadcrumb a{color:var(--primary);}
+.breadcrumb a:hover{text-decoration:underline;}
+.shop-filters{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;}
+.filter-btn{padding:8px 20px;border-radius:50px;font-size:0.85rem;font-weight:500;background:var(--bg2);color:var(--text-muted);border:1px solid var(--border);transition:var(--transition);cursor:pointer;}
+.filter-btn.active,.filter-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* ===================== PRODUCT DETAIL PAGE ===================== */
+.product-detail-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;padding:60px 0;}
+.product-detail-gallery{}
+.product-main-img{border-radius:var(--radius);background:var(--bg2);overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);}
+/* PRODUCT DETAIL IMAGE PLACEHOLDER */
+/* Replace .product-detail-placeholder div with: <img src="product-detail.jpg" alt="Product Name" style="width:100%;height:100%;object-fit:cover;"> */
+.product-detail-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text-muted);font-size:0.88rem;text-align:center;padding:30px;background:linear-gradient(135deg,#F5F5F5,#EEEEEE);width:100%;height:100%;}
+.product-detail-info{}
+.product-detail-name{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--primary-dark);margin-bottom:8px;}
+.product-detail-price{font-size:1.5rem;font-weight:700;color:var(--primary);margin-bottom:20px;}
+.product-detail-desc{font-size:0.95rem;line-height:1.75;color:var(--text-muted);margin-bottom:28px;}
+.benefits-list{margin-bottom:28px;}
+.benefits-list h4{font-weight:600;margin-bottom:12px;color:var(--text);}
+.benefits-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:0.9rem;color:var(--text-muted);}
+.benefits-list li::before{content:'✓';color:var(--primary);font-weight:700;flex-shrink:0;margin-top:1px;}
+.qty-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.qty-label{font-weight:600;font-size:0.9rem;}
+.qty-control{display:flex;align-items:center;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.qty-control button{width:38px;height:38px;background:var(--bg2);color:var(--text);font-size:1.1rem;font-weight:600;display:flex;align-items:center;justify-content:center;transition:var(--transition);}
+.qty-control button:hover{background:var(--primary);color:#fff;}
+.qty-control input{width:50px;height:38px;text-align:center;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);font-size:0.95rem;font-family:var(--font-body);background:#fff;outline:none;}
+.detail-actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* ===================== CART PAGE ===================== */
+.cart-layout{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start;padding:40px 0;}
+.cart-items-list{display:flex;flex-direction:column;gap:16px;}
+.cart-item{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:20px;display:flex;gap:18px;align-items:flex-start;}
+.cart-item-img{width:90px;height:90px;border-radius:var(--radius-sm);background:var(--bg2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--text-muted);text-align:center;overflow:hidden;}
+.cart-item-img img{width:100%;height:100%;object-fit:cover;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-weight:600;font-size:0.95rem;margin-bottom:4px;}
+.cart-item-price{color:var(--primary);font-weight:700;font-size:1rem;margin-bottom:10px;}
+.cart-item-qty{display:flex;align-items:center;gap:8px;}
+.cart-item-qty button{width:28px;height:28px;border-radius:6px;background:var(--bg2);color:var(--text);font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:var(--transition);}
+.cart-item-qty button:hover{background:var(--primary);color:#fff;}
+.cart-item-qty span{width:28px;text-align:center;font-weight:600;}
+.cart-item-remove{color:var(--text-muted);background:none;font-size:1.2rem;padding:4px;transition:var(--transition);}
+.cart-item-remove:hover{color:#e74c3c;}
+.cart-summary{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:28px;position:sticky;top:88px;}
+.cart-summary h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:20px;}
+.summary-row{display:flex;justify-content:space-between;margin-bottom:12px;font-size:0.92rem;}
+.summary-row.total{border-top:1px solid var(--border);padding-top:14px;margin-top:4px;font-weight:700;font-size:1rem;color:var(--primary);}
+.cart-actions{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.empty-cart{text-align:center;padding:60px 20px;}
+.empty-cart svg{width:80px;height:80px;opacity:0.2;margin:0 auto 16px;}
+.empty-cart h3{font-family:var(--font-display);font-size:1.3rem;color:var(--text-muted);margin-bottom:8px;}
+.empty-cart p{font-size:0.9rem;color:var(--text-muted);margin-bottom:24px;}
+
+/* ===================== CHECKOUT PAGE ===================== */
+.checkout-layout{display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start;padding:40px 0;}
+.checkout-form-section{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:32px;}
+.checkout-form-section h2{font-family:var(--font-display);font-size:1.2rem;margin-bottom:24px;color:var(--primary-dark);}
+.form-group{margin-bottom:18px;}
+.form-label{display:block;font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:6px;}
+.form-input{width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-size:0.92rem;font-family:var(--font-body);background:#fff;color:var(--text);transition:var(--transition);outline:none;}
+.form-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,0,0,0.08);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.payment-methods{margin-top:28px;}
+.payment-methods h3{font-family:var(--font-display);font-size:1rem;margin-bottom:16px;color:var(--text);}
+.payment-group{margin-bottom:20px;}
+.payment-group-label{font-size:0.82rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:10px;}
+.payment-options{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+.payment-option{border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;cursor:pointer;transition:var(--transition);}
+.payment-option:hover{border-color:var(--primary-light);}
+.payment-option.selected{border-color:var(--primary);background:rgba(0,0,0,0.04);}
+.payment-option-icon{font-size:1.4rem;margin-bottom:4px;}
+.payment-option-name{font-size:0.78rem;font-weight:600;color:var(--text);}
+.checkout-summary{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:28px;position:sticky;top:88px;}
+.checkout-summary h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:20px;}
+.checkout-item{display:flex;justify-content:space-between;margin-bottom:10px;font-size:0.88rem;}
+.checkout-item-name{color:var(--text-muted);}
+.checkout-item-price{font-weight:600;}
+.order-success{display:none;text-align:center;padding:40px 20px;}
+.order-success.visible{display:block;}
+.success-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#111111,#444444);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem;}
+.order-success h2{font-family:var(--font-display);font-size:1.5rem;color:var(--primary-dark);margin-bottom:10px;}
+.order-success p{color:var(--text-muted);font-size:0.95rem;line-height:1.6;}
+
+/* ===================== ABOUT PAGE ===================== */
+.about-story{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:60px 0;}
+.about-image-col{border-radius:var(--radius);overflow:hidden;background:var(--bg2);min-height:400px;display:flex;align-items:center;justify-content:center;}
+/* ABOUT PAGE IMAGE PLACEHOLDER */
+/* Replace .about-img-placeholder with: <img src="about-image.jpg" alt="About REVOOBIT"> */
+.about-img-placeholder{width:100%;height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text-muted);font-size:0.88rem;text-align:center;background:linear-gradient(135deg,#F5F5F5,#EEEEEE);border:2px dashed var(--border);}
+.mission-vision{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;}
+.mv-card{background:var(--white);border-radius:var(--radius);padding:32px;border:1px solid var(--border);}
+.mv-card .section-title{font-size:1.3rem;margin-bottom:12px;}
+.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:40px;}
+.value-card{padding:24px;background:var(--white);border-radius:var(--radius);border:1px solid var(--border);text-align:center;}
+.value-icon{font-size:2rem;margin-bottom:12px;}
+.value-title{font-weight:600;margin-bottom:6px;color:var(--primary-dark);}
+.value-text{font-size:0.85rem;color:var(--text-muted);line-height:1.6;}
+
+/* ===================== CONTACT PAGE ===================== */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:60px 0;}
+.contact-form-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:36px;}
+.contact-info-card{padding:0 0 0 20px;}
+.contact-info-card h2{font-family:var(--font-display);font-size:1.6rem;margin-bottom:12px;color:var(--primary-dark);}
+.contact-info-items{display:flex;flex-direction:column;gap:20px;margin:28px 0;}
+.contact-info-row{display:flex;gap:14px;align-items:flex-start;}
+.contact-icon-box{width:44px;height:44px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;color:var(--primary);}
+.contact-info-text strong{display:block;font-size:0.88rem;font-weight:600;margin-bottom:3px;}
+.contact-info-text span{font-size:0.92rem;color:var(--text-muted);}
+.form-status{padding:12px 16px;border-radius:var(--radius-sm);font-size:0.88rem;margin-bottom:16px;display:none;}
+.form-status.success{background:#e5e5e5;color:#111111;display:block;}
+.form-status.error{background:#f0f0f0;color:#333333;display:block;}
+
+/* ===================== TOAST ===================== */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--primary-dark);color:#fff;padding:14px 22px;border-radius:12px;font-size:0.9rem;font-weight:500;box-shadow:var(--shadow-lg);z-index:9999;transform:translateY(80px);opacity:0;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);max-width:320px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success::before{content:'✓  ';}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:1024px){
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .product-detail-wrap{gap:40px;}
+  .cart-layout,.checkout-layout{grid-template-columns:1fr;}
+  .hero-image-col{display:none;}
+}
+@media(max-width:768px){
+  .section-pad{padding:56px 0;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .about-story,.contact-layout{grid-template-columns:1fr;}
+  .product-detail-wrap{grid-template-columns:1fr;}
+  .mission-vision{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .hero-stats{gap:20px;}
+  .contact-strip .container{flex-direction:column;}
+  .footer-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .products-header{flex-direction:column;align-items:flex-start;}
+  .hero-actions{flex-direction:column;}
+  .hero-actions .btn{justify-content:center;}
+  .cart-item{flex-direction:column;}
+  .checkout-form-section,.checkout-summary{padding:20px;}
+  .payment-options{grid-template-columns:1fr 1fr;}
+}
+/* Scroll animation */
+.animate-on-scroll{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.animate-on-scroll.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" onclick="showPage('home')">
+        <img src="logo.jpg" alt="REVOOBIT Logo" style="height:44px;width:auto;">
+        <span class="nav-logo-text">REVOO<span>BIT</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#" onclick="showPage('home')" data-page="home" class="active">Home</a></li>
+        <li><a href="#" onclick="showPage('shop')" data-page="shop">Shop</a></li>
+        <li><a href="#" onclick="showPage('about')" data-page="about">About</a></li>
+        <li><a href="#" onclick="showPage('contact')" data-page="contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="cart-btn" onclick="showPage('cart')" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');closeMobileMenu()">Home</a>
+  <a href="#" onclick="showPage('shop');closeMobileMenu()">Shop</a>
+  <a href="#" onclick="showPage('about');closeMobileMenu()">About</a>
+  <a href="#" onclick="showPage('contact');closeMobileMenu()">Contact</a>
+  <a href="#" onclick="showPage('cart');closeMobileMenu()">🛒 Cart</a>
+</div>
+
+<!-- ===================== TOAST ===================== -->
+<div class="toast" id="toast"></div>
+
+<!-- ====================================================
+     HOME PAGE
+     ==================================================== -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="hero-bg.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:1;position:absolute;inset:0;">
+    </div>
+    <div class="hero-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">Your Wellness Journey Starts Here</div>
+        <h1 class="hero-title">Welcome to <em>REVOOBIT</em><br>Wellness Store</h1>
+        <p class="hero-tagline">Discover premium wellness products crafted from nature's finest ingredients. Elevate your health, energy, and vitality every single day.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="showPage('shop')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Shop Now
+          </button>
+          <button class="btn btn-secondary" onclick="showPage('about')">Learn More</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="hero-stat-num">7+</div><div class="hero-stat-label">Premium Products</div></div>
+          <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">Happy Customers</div></div>
+          <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">Natural Ingredients</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-col">
+      <!--<img src="hero-products.jpg" alt="REVOOBIT Wellness Products" style="max-height:85vh;object-fit:contain;"> -->
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="products-header animate-on-scroll">
+        <div>
+          <div class="tag">Our Products</div>
+          <h2 class="section-title">Featured Wellness Products</h2>
+          <p class="section-sub">Carefully selected supplements to support your health and wellness journey.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="showPage('shop')">View All Products</button>
+      </div>
+      <div class="product-grid" id="homeFeaturedProducts">
+
+        <!-- ===== PRODUCT 1: Miira Cell Plus ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-cell-plus.jpg" alt="Miira Cell Plus">
+            <div class="product-badge">Best Seller</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Cell Plus</div>
+            <div class="product-tagline">Advanced Cellular Regeneration</div>
+            <div class="product-price">GH₵ 250.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-cell-plus')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-cell-plus')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 2: Miira Life ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-life.jpg" alt="Miira Life">
+            <div class="product-badge">New</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Life</div>
+            <div class="product-tagline">Complete Daily Wellness Supplement</div>
+            <div class="product-price">GH₵ 220.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-life')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-life')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 3: Miira Coffee ===== -->
+        <div class="product-card" data-category="energy">
+          <div class="product-img-wrap">
+            <img src="miira-coffee.jpg" alt="Miira Coffee">
+            <div class="product-badge">Popular</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Coffee</div>
+            <div class="product-tagline">Wellness-Infused Functional Coffee</div>
+            <div class="product-price">GH₵ 180.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-coffee')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-coffee')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 4: Miira Lanang ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-lanang.jpg" alt="Miira Lanang">
+            <div class="product-badge">For Men</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Lanang</div>
+            <div class="product-tagline">Men's Vitality &amp; Performance Formula</div>
+            <div class="product-price">GH₵ 280.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-lanang')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-lanang')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 5: Miira Wedok ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-wedok.jpg" alt="Miira Wedok">
+            <div class="product-badge">For Women</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Wedok</div>
+            <div class="product-tagline">Women's Hormonal Balance &amp; Vitality</div>
+            <div class="product-price">GH₵ 270.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-wedok')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-wedok')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 6: Miira Curve ===== -->
+        <div class="product-card" data-category="beauty">
+          <div class="product-img-wrap">
+            <img src="miira-curve.jpg" alt="Miira Curve">
+            <div class="product-badge">Trending</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Curve</div>
+            <div class="product-tagline">Natural Body Shaping &amp; Weight Support</div>
+            <div class="product-price">GH₵ 260.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-curve')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-curve')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 7: Miira Phyll ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-phyll.jpg" alt="Miira Phyll">
+            <div class="product-badge">Detox</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Phyll</div>
+            <div class="product-tagline">Nature's Chlorophyll Detox Formula</div>
+            <div class="product-price">GH₵ 200.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-phyll')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-phyll')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section-pad benefits">
+    <div class="container">
+      <div class="animate-on-scroll" style="text-align:center;margin-bottom:0;">
+        <div class="tag">Why Choose Us</div>
+        <h2 class="section-title" style="text-align:center;">The REVOOBIT Difference</h2>
+        <p class="section-sub" style="margin:0 auto;">We are committed to quality, transparency, and your wellness above all else.</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card animate-on-scroll">
+          <div class="benefit-icon">🌿</div>
+          <div class="benefit-title">Natural Ingredients</div>
+          <p class="benefit-text">All our products are formulated with 100% natural, ethically sourced ingredients for maximum wellness benefits.</p>
+        </div>
+        <div class="benefit-card animate-on-scroll">
+          <div class="benefit-icon">💪</div>
+          <div class="benefit-title">Wellness Support</div>
+          <p class="benefit-text">Scientifically backed formulations designed to support your body's natural systems and promote lasting health.</p>
+        </div>
+        <div class="benefit-card animate-on-scroll">
+          <div class="benefit-icon">🚚</div>
+          <div class="benefit-title">Fast Delivery</div>
+          <p class="benefit-text">We ensure your wellness products reach you quickly and safely, anywhere across Ghana.</p>
+        </div>
+        <div class="benefit-card animate-on-scroll">
+          <div class="benefit-icon">🔒</div>
+          <div class="benefit-title">Secure Payments</div>
+          <p class="benefit-text">Shop confidently with our secure payment options including Mobile Money, Visa, and Mastercard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-pad testimonials">
+    <div class="container">
+      <div class="animate-on-scroll" style="text-align:center;">
+        <div class="tag">Testimonials</div>
+        <h2 class="section-title" style="text-align:center;">What Our Customers Say</h2>
+        <p class="section-sub" style="margin:0 auto;">Real stories from real people whose lives have been transformed.</p>
+      </div>
+      <div class="testimonials-grid" style="margin-top:48px;">
+        <div class="testimonial-card animate-on-scroll">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Miira Cell Plus has completely transformed my energy levels. I feel more vibrant and healthy than I have in years. Highly recommend REVOOBIT!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AO</div>
+            <div><div class="author-name">Ama Osei</div><div class="author-loc">Accra, Ghana</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card animate-on-scroll">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Miira Coffee is incredible — great taste and I notice a real boost in my focus and clarity. It's now part of my daily morning routine."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">KM</div>
+            <div><div class="author-name">Kwame Mensah</div><div class="author-loc">Kumasi, Ghana</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card animate-on-scroll">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"I've tried many wellness brands, but REVOOBIT stands out. The products are genuine, fast delivery, and customer service is outstanding."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">EA</div>
+            <div><div class="author-name">Efua Asante</div><div class="author-loc">Takoradi, Ghana</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Strip -->
+  <section class="contact-strip">
+    <div class="container">
+      <div class="contact-strip-text">
+        <div class="tag" style="background:rgba(255,255,255,0.15);color:#fff;">Get In Touch</div>
+        <h2 class="section-title">Ready to Start Your<br>Wellness Journey?</h2>
+        <p class="section-sub">Order via WhatsApp or reach us directly. We're here to help you choose the right products.</p>
+      </div>
+      <div>
+        <div class="contact-info-list" style="margin-bottom:24px;">
+          <div class="contact-info-item"><div class="contact-info-icon">📱</div><span>+233 XX XXX XXXX</span></div>
+          <div class="contact-info-item"><div class="contact-info-icon">✉️</div><span>info@revoobit.com</span></div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://wa.me/233XXXXXXXXX?text=Hello%20REVOOBIT!%20I%20would%20like%20to%20place%20an%20order." target="_blank" class="btn btn-whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp Order
+          </a>
+          <button class="btn btn-secondary" style="color:#fff;border-color:rgba(255,255,255,0.4);" onclick="showPage('contact')">Contact Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <!-- FOOTER LOGO PLACEHOLDER -->
+            <!-- Replace with: <img src="logo.png" alt="REVOOBIT" style="height:36px;"> -->
+            <div class="footer-logo-box">RW</div>
+            <span class="footer-logo-name">REVOOBIT Wellness</span>
+          </div>
+          <p class="footer-about">Your trusted partner in natural wellness. We provide premium, science-backed supplements to support your health journey every day.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook">f</a>
+            <a href="#" class="social-link" aria-label="Instagram">in</a>
+            <a href="#" class="social-link" aria-label="Twitter">tw</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+            <li><a href="#" onclick="showPage('about')">About Us</a></li>
+            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Products</h4>
+          <ul>
+            <li><a href="#" onclick="showProductDetail('miira-cell-plus')">Miira Cell Plus</a></li>
+            <li><a href="#" onclick="showProductDetail('miira-life')">Miira Life</a></li>
+            <li><a href="#" onclick="showProductDetail('miira-coffee')">Miira Coffee</a></li>
+            <li><a href="#" onclick="showProductDetail('miira-lanang')">Miira Lanang</a></li>
+            <li><a href="#" onclick="showProductDetail('miira-wedok')">Miira Wedok</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="#">📱 +233 XX XXX XXXX</a></li>
+            <li><a href="#">✉️ info@revoobit.com</a></li>
+            <li><a href="#">📍 Accra, Ghana</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 REVOOBIT Wellness Store. All rights reserved.</p>
+        <p>Designed with 💚 for your wellness</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ====================================================
+     SHOP PAGE
+     ==================================================== -->
+<div class="page" id="page-shop">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span>Shop</span></div>
+      <h1>Our Products</h1>
+      <p style="color:var(--text-muted);margin-top:6px;">Discover our full range of premium wellness supplements</p>
+    </div>
+  </div>
+  <div class="container section-pad">
+    <div class="shop-filters" id="shopFilters">
+      <button class="filter-btn active" onclick="filterShop('all',this)">All Products</button>
+      <button class="filter-btn" onclick="filterShop('wellness',this)">Wellness</button>
+      <button class="filter-btn" onclick="filterShop('energy',this)">Energy</button>
+      <button class="filter-btn" onclick="filterShop('beauty',this)">Beauty</button>
+    </div>
+    <div class="product-grid" id="shopProductGrid">
+
+        <!-- ===== PRODUCT 1: Miira Cell Plus ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-cell-plus.jpg" alt="Miira Cell Plus">
+            <div class="product-badge">Best Seller</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Cell Plus</div>
+            <div class="product-tagline">Advanced Cellular Regeneration</div>
+            <div class="product-price">GH₵ 250.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-cell-plus')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-cell-plus')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 2: Miira Life ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-life.jpg" alt="Miira Life">
+            <div class="product-badge">New</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Life</div>
+            <div class="product-tagline">Complete Daily Wellness Supplement</div>
+            <div class="product-price">GH₵ 220.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-life')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-life')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 3: Miira Coffee ===== -->
+        <div class="product-card" data-category="energy">
+          <div class="product-img-wrap">
+            <img src="miira-coffee.jpg" alt="Miira Coffee">
+            <div class="product-badge">Popular</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Coffee</div>
+            <div class="product-tagline">Wellness-Infused Functional Coffee</div>
+            <div class="product-price">GH₵ 180.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-coffee')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-coffee')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 4: Miira Lanang ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-lanang.jpg" alt="Miira Lanang">
+            <div class="product-badge">For Men</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Lanang</div>
+            <div class="product-tagline">Men's Vitality &amp; Performance Formula</div>
+            <div class="product-price">GH₵ 280.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-lanang')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-lanang')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 5: Miira Wedok ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-wedok.jpg" alt="Miira Wedok">
+            <div class="product-badge">For Women</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Wedok</div>
+            <div class="product-tagline">Women's Hormonal Balance &amp; Vitality</div>
+            <div class="product-price">GH₵ 270.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-wedok')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-wedok')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 6: Miira Curve ===== -->
+        <div class="product-card" data-category="beauty">
+          <div class="product-img-wrap">
+            <img src="miira-curve.jpg" alt="Miira Curve">
+            <div class="product-badge">Trending</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Curve</div>
+            <div class="product-tagline">Natural Body Shaping &amp; Weight Support</div>
+            <div class="product-price">GH₵ 260.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-curve')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-curve')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCT 7: Miira Phyll ===== -->
+        <div class="product-card" data-category="wellness">
+          <div class="product-img-wrap">
+            <img src="miira-phyll.jpg" alt="Miira Phyll">
+            <div class="product-badge">Detox</div>
+          </div>
+          <div class="product-body">
+            <div class="product-name">Miira Phyll</div>
+            <div class="product-tagline">Nature's Chlorophyll Detox Formula</div>
+            <div class="product-price">GH₵ 200.00 <span>/ Pack</span></div>
+            <div class="product-actions">
+              <button class="btn view-btn btn-sm" onclick="showProductDetail('miira-phyll')">View Details</button>
+              <button class="btn add-cart-btn btn-sm" onclick="addToCart('miira-phyll')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PRODUCT DETAIL PAGE
+     ==================================================== -->
+<div class="page" id="page-product-detail">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('shop')">Shop</a><span>›</span><span id="detailBreadcrumb">Product</span></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="product-detail-wrap" id="productDetailContent">
+
+      <!-- ===== DETAIL: Miira Cell Plus ===== -->
+      <div id="detail-miira-cell-plus" style="display:none;grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+          <div class="product-detail-gallery">
+            <div class="product-main-img">
+              <img src="miira-cell-plus.jpg" alt="Miira Cell Plus" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+          <div class="product-detail-info">
+            <div class="tag">Best Seller</div>
+            <h1 class="product-detail-name">Miira Cell Plus</h1>
+            <div class="product-detail-price">GH₵ 250.00 <span style="font-size:0.85rem;color:var(--text-muted);font-weight:400;">per pack</span></div>
+            <p class="product-detail-desc">Miira Cell Plus is a premium cellular health supplement scientifically formulated to support your body at the cellular level. Using advanced nano-technology, it delivers powerful antioxidants and essential nutrients directly to your cells, promoting regeneration, repair, and optimal function.</p>
+            <div class="benefits-list"><h4>Key Benefits</h4><ul>
+              <li>Supports cellular regeneration and repair</li>
+              <li>Boosts immune system function</li>
+              <li>Powerful antioxidant protection</li>
+              <li>Promotes anti-aging effects</li>
+              <li>Enhances energy production at the cellular level</li>
+              <li>Improves overall vitality and wellness</li>
+            </ul></div>
+            <div class="qty-row"><span class="qty-label">Quantity:</span><div class="qty-control"><button onclick="changeDetailQty(-1)">−</button><input type="number" id="detailQty" value="1" min="1" max="99"><button onclick="changeDetailQty(1)">+</button></div></div>
+            <div class="detail-actions">
+              <button class="btn btn-primary" onclick="addToCartFromDetail('miira-cell-plus')">Add to Cart</button>
+              <button class="btn btn-secondary" onclick="showPage('cart')">View Cart</button>
+              <a href="https://wa.me/233XXXXXXXXX?text=Hello!%20I%20want%20to%20order%20Miira%20Cell%20Plus" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DETAIL: Miira Life ===== -->
+      <div id="detail-miira-life" style="display:none;grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+          <div class="product-detail-gallery">
+            <div class="product-main-img">
+              <img src="miira-life.jpg" alt="Miira Life" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+          <div class="product-detail-info">
+            <div class="tag">New</div>
+            <h1 class="product-detail-name">Miira Life</h1>
+            <div class="product-detail-price">GH₵ 220.00 <span style="font-size:0.85rem;color:var(--text-muted);font-weight:400;">per pack</span></div>
+            <p class="product-detail-desc">Miira Life is your all-in-one daily wellness formula, thoughtfully crafted to nourish your body with the complete spectrum of vitamins, minerals, and phytonutrients it needs to thrive.</p>
+            <div class="benefits-list"><h4>Key Benefits</h4><ul>
+              <li>Complete multivitamin and mineral support</li>
+              <li>Supports digestive health and gut microbiome</li>
+              <li>Boosts energy and reduces fatigue</li>
+              <li>Promotes mental clarity and focus</li>
+              <li>Supports cardiovascular health</li>
+              <li>Strengthens bones and joints</li>
+            </ul></div>
+            <div class="qty-row"><span class="qty-label">Quantity:</span><div class="qty-control"><button onclick="changeDetailQty(-1)">−</button><input type="number" id="detailQty" value="1" min="1" max="99"><button onclick="changeDetailQty(1)">+</button></div></div>
+            <div class="detail-actions">
+              <button class="btn btn-primary" onclick="addToCartFromDetail('miira-life')">Add to Cart</button>
+              <button class="btn btn-secondary" onclick="showPage('cart')">View Cart</button>
+              <a href="https://wa.me/233XXXXXXXXX?text=Hello!%20I%20want%20to%20order%20Miira%20Life" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DETAIL: Miira Coffee ===== -->
+      <div id="detail-miira-coffee" style="display:none;grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+          <div class="product-detail-gallery">
+            <div class="product-main-img">
+              <img src="miira-coffee.jpg" alt="Miira Coffee" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+          <div class="product-detail-info">
+            <div class="tag">Popular</div>
+            <h1 class="product-detail-name">Miira Coffee</h1>
+            <div class="product-detail-price">GH₵ 180.00 <span style="font-size:0.85rem;color:var(--text-muted);font-weight:400;">per pack</span></div>
+            <p class="product-detail-desc">Miira Coffee is not your ordinary coffee. This premium functional beverage combines the rich, smooth taste of high-quality Arabica coffee with a powerful blend of adaptogenic herbs and wellness compounds.</p>
+            <div class="benefits-list"><h4>Key Benefits</h4><ul>
+              <li>Natural energy boost without crashes</li>
+              <li>Enhances mental focus and cognitive performance</li>
+              <li>Contains adaptogenic herbs for stress relief</li>
+              <li>Supports healthy metabolism</li>
+              <li>Rich in antioxidants</li>
+              <li>Promotes sustained, clean energy throughout the day</li>
+            </ul></div>
+            <div class="qty-row"><span class="qty-label">Quantity:</span><div class="qty-control"><button onclick="changeDetailQty(-1)">−</button><input type="number" id="detailQty" value="1" min="1" max="99"><button onclick="changeDetailQty(1)">+</button></div></div>
+            <div class="detail-actions">
+              <button class="btn btn-primary" onclick="addToCartFromDetail('miira-coffee')">Add to Cart</button>
+              <button class="btn btn-secondary" onclick="showPage('cart')">View Cart</button>
+              <a href="https://wa.me/233XXXXXXXXX?text=Hello!%20I%20want%20to%20order%20Miira%20Coffee" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DETAIL: Miira Lanang ===== -->
+      <div id="detail-miira-lanang" style="display:none;grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+          <div class="product-detail-gallery">
+            <div class="product-main-img">
+              <img src="miira-lanang.jpg" alt="Miira Lanang" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+          <div class="product-detail-info">
+            <div class="tag">For Men</div>
+            <h1 class="product-detail-name">Miira Lanang</h1>
+            <div class="product-detail-price">GH₵ 280.00 <span style="font-size:0.85rem;color:var(--text-muted);font-weight:400;">per pack</span></div>
+            <p class="product-detail-desc">Miira Lanang is a specialized men's health supplement formulated to support and optimize male vitality, strength, and performance. Drawing on time-tested natural herbs combined with modern nutritional science.</p>
+            <div class="benefits-list"><h4>Key Benefits</h4><ul>
+              <li>Supports healthy testosterone levels</li>
+              <li>Enhances physical strength and stamina</li>
+              <li>Improves reproductive health and fertility</li>
+              <li>Boosts libido and sexual performance</li>
+              <li>Supports prostate health</li>
+              <li>Promotes mental resilience and confidence</li>
+            </ul></div>
+            <div class="qty-row"><span class="qty-label">Quantity:</span><div class="qty-control"><button onclick="changeDetailQty(-1)">−</button><input type="number" id="detailQty" value="1" min="1" max="99"><button onclick="changeDetailQty(1)">+</button></div></div>
+            <div class="detail-actions">
+              <button class="btn btn-primary" onclick="addToCartFromDetail('miira-lanang')">Add to Cart</button>
+              <button class="btn btn-secondary" onclick="showPage('cart')">View Cart</button>
+              <a href="https://wa.me/233XXXXXXXXX?text=Hello!%20I%20want%20to%20order%20Miira%20Lanang" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DETAIL: Miira Wedok ===== -->
+      <div id="detail-miira-wedok" style="display:none;grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+          <div class="product-detail-gallery">
+            <div class="product-main-img">
+              <img src="miira-wedok.jpg" alt="Miira Wedok" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+          <div class="product-detail-info">
+            <div class="tag">For Women</div>
+            <h1 class="product-detail-name">Miira Wedok</h1>
+            <div class="product-detail-price">GH₵ 270.00 <span style="font-size:0.85rem;color:var(--text-muted);font-weight:400;">per pack</span></div>
+            <p class="product-detail-desc">Miira Wedok is a comprehensive women's wellness formula carefully designed to support hormonal balance, reproductive health, and overall vitality throughout every stage of a woman's life.</p>
+            <div class="benefits-list"><h4>Key Benefits</h4><ul>
+              <li>Supports women's hormonal balance</li>
+              <li>Reduces PMS and menstrual discomfort</li>
+              <li>Promotes reproductive health</li>
+              <li>Enhances skin health and natural glow</li>
+              <li>Supports emotional balance and mood</li>
+              <li>Boosts energy and reduces fatigue in women</li>
+            </ul></div>
+            <div class="qty-row"><span class="qty-label">Quantity:</span><div class="qty-control"><button onclick="changeDetailQty(-1)">−</button><input type="number" id="detailQty" value="1" min="1" max="99"><button onclick="changeDetailQty(1)">+</button></div></div>
+            <div class="detail-actions">
+              <button class="btn btn-primary" onclick="addToCartFromDetail('miira-wedok')">Add to Cart</button>
+              <button class="btn btn-secondary" onclick="showPage('cart')">View Cart</button>
+              <a href="https://wa.me/233XXXXXXXXX?text=Hello!%20I%20want%20to%20order%20Miira%20Wedok" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DETAIL: Miira Curve ===== -->
+      <div id="detail-miira-curve" style="display:none;grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+          <div class="product-detail-gallery">
+            <div class="product-main-img">
+              <img src="miira-curve.jpg" alt="Miira Curve" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+          <div class="product-detail-info">
+            <div class="tag">Trending</div>
+            <h1 class="product-detail-name">Miira Curve</h1>
+            <div class="product-detail-price">GH₵ 260.00 <span style="font-size:0.85rem;color:var(--text-muted);font-weight:400;">per pack</span></div>
+            <p class="product-detail-desc">Miira Curve is an innovative natural body shaping supplement designed to support healthy weight management and help you achieve your desired body composition using a synergistic blend of natural herbs and metabolic boosters.</p>
+            <div class="benefits-list"><h4>Key Benefits</h4><ul>
+              <li>Supports healthy weight management</li>
+              <li>Boosts metabolism naturally</li>
+              <li>Reduces cravings and appetite</li>
+              <li>Promotes fat metabolism</li>
+              <li>Helps achieve desired body shape</li>
+              <li>Supports energy levels during weight management</li>
+            </ul></div>
+            <div class="qty-row"><span class="qty-label">Quantity:</span><div class="qty-control"><button onclick="changeDetailQty(-1)">−</button><input type="number" id="detailQty" value="1" min="1" max="99"><button onclick="changeDetailQty(1)">+</button></div></div>
+            <div class="detail-actions">
+              <button class="btn btn-primary" onclick="addToCartFromDetail('miira-curve')">Add to Cart</button>
+              <button class="btn btn-secondary" onclick="showPage('cart')">View Cart</button>
+              <a href="https://wa.me/233XXXXXXXXX?text=Hello!%20I%20want%20to%20order%20Miira%20Curve" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DETAIL: Miira Phyll ===== -->
+      <div id="detail-miira-phyll" style="display:none;grid-column:1/-1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+          <div class="product-detail-gallery">
+            <div class="product-main-img">
+              <img src="miira-phyll.jpg" alt="Miira Phyll" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+          <div class="product-detail-info">
+            <div class="tag">Detox</div>
+            <h1 class="product-detail-name">Miira Phyll</h1>
+            <div class="product-detail-price">GH₵ 200.00 <span style="font-size:0.85rem;color:var(--text-muted);font-weight:400;">per pack</span></div>
+            <p class="product-detail-desc">Miira Phyll harnesses the extraordinary power of chlorophyll — nature's master detoxifier — in a premium, highly bioavailable formula. It supports your body's natural detoxification pathways and alkalizes your system.</p>
+            <div class="benefits-list"><h4>Key Benefits</h4><ul>
+              <li>Powerful internal detoxification</li>
+              <li>Alkalizes the body for optimal pH balance</li>
+              <li>Supports liver and kidney function</li>
+              <li>Promotes healthy blood and circulation</li>
+              <li>Rich in natural phytonutrients</li>
+              <li>Boosts energy and reduces body odor naturally</li>
+            </ul></div>
+            <div class="qty-row"><span class="qty-label">Quantity:</span><div class="qty-control"><button onclick="changeDetailQty(-1)">−</button><input type="number" id="detailQty" value="1" min="1" max="99"><button onclick="changeDetailQty(1)">+</button></div></div>
+            <div class="detail-actions">
+              <button class="btn btn-primary" onclick="addToCartFromDetail('miira-phyll')">Add to Cart</button>
+              <button class="btn btn-secondary" onclick="showPage('cart')">View Cart</button>
+              <a href="https://wa.me/233XXXXXXXXX?text=Hello!%20I%20want%20to%20order%20Miira%20Phyll" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="container" style="padding-bottom:60px;">
+    <h3 style="font-family:var(--font-display);font-size:1.4rem;margin-bottom:24px;color:var(--primary-dark);">You May Also Like</h3>
+    <div class="product-grid" id="relatedProducts"></div>
+  </div>
+</div>
+
+<!-- ====================================================
+     CART PAGE
+     ==================================================== -->
+<div class="page" id="page-cart">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span>Cart</span></div>
+      <h1>Shopping Cart</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div id="cartContent"></div>
+  </div>
+</div>
+
+<!-- ====================================================
+     CHECKOUT PAGE
+     ==================================================== -->
+<div class="page" id="page-checkout">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('cart')">Cart</a><span>›</span><span>Checkout</span></div>
+      <h1>Checkout</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div class="checkout-layout">
+      <div>
+        <div class="checkout-form-section" id="checkoutFormSection">
+          <h2>Customer Information</h2>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" id="co_name" type="text" placeholder="Your full name"></div>
+            <div class="form-group"><label class="form-label">Phone Number *</label><input class="form-input" id="co_phone" type="tel" placeholder="+233 XX XXX XXXX"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" id="co_email" type="email" placeholder="you@email.com"></div>
+          <h2 style="margin-top:28px;">Delivery Information</h2>
+          <div class="form-group"><label class="form-label">Delivery Address *</label><input class="form-input" id="co_address" type="text" placeholder="Street address"></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">City *</label><input class="form-input" id="co_city" type="text" placeholder="City"></div>
+            <div class="form-group"><label class="form-label">Region *</label>
+              <select class="form-input" id="co_region">
+                <option value="">Select Region</option>
+                <option>Greater Accra</option><option>Ashanti</option><option>Western</option><option>Central</option><option>Eastern</option><option>Volta</option><option>Northern</option><option>Upper East</option><option>Upper West</option><option>Brong-Ahafo</option>
+              </select>
+            </div>
+          </div>
+          <div class="payment-methods">
+            <h3>Payment Method</h3>
+            <div class="payment-group">
+              <div class="payment-group-label">Mobile Money</div>
+              <div class="payment-options">
+                <div class="payment-option" onclick="selectPayment(this,'mtn')"><div class="payment-option-icon">📱</div><div class="payment-option-name">MTN MoMo</div></div>
+                <div class="payment-option" onclick="selectPayment(this,'telecel')"><div class="payment-option-icon">📲</div><div class="payment-option-name">Telecel Cash</div></div>
+                <div class="payment-option" onclick="selectPayment(this,'airteltigo')"><div class="payment-option-icon">📳</div><div class="payment-option-name">AirtelTigo Money</div></div>
+              </div>
+            </div>
+            <div class="payment-group">
+              <div class="payment-group-label">Card Payments</div>
+              <div class="payment-options">
+                <div class="payment-option" onclick="selectPayment(this,'visa')"><div class="payment-option-icon">💳</div><div class="payment-option-name">Visa</div></div>
+                <div class="payment-option" onclick="selectPayment(this,'mastercard')"><div class="payment-option-icon">💳</div><div class="payment-option-name">Mastercard</div></div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:28px;padding:15px;" onclick="placeOrder()">
+            Place Order
+          </button>
+        </div>
+        <div class="order-success" id="orderSuccess">
+          <div class="success-icon">✓</div>
+          <h2>Order Placed Successfully!</h2>
+          <p>Thank you for your order! We'll contact you shortly on WhatsApp or phone to confirm delivery details.</p>
+          <p style="margin-top:12px;font-size:0.88rem;"><strong>Order Reference:</strong> <span id="orderRef"></span></p>
+          <button class="btn btn-primary" style="margin-top:28px;" onclick="showPage('shop')">Continue Shopping</button>
+        </div>
+      </div>
+      <div class="checkout-summary">
+        <h3>Order Summary</h3>
+        <div id="checkoutSummaryItems"></div>
+        <div class="summary-row" style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px;"><span>Subtotal</span><span id="coSubtotal">GH₵ 0.00</span></div>
+        <div class="summary-row"><span>Delivery</span><span style="color:var(--primary);font-weight:600;">Free</span></div>
+        <div class="summary-row total"><span>Total</span><span id="coTotal">GH₵ 0.00</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     ABOUT PAGE
+     ==================================================== -->
+<div class="page" id="page-about">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span>About</span></div>
+      <h1>About REVOOBIT</h1>
+      <p style="color:var(--text-muted);margin-top:6px;">Our story, mission, and commitment to your wellness</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="about-story">
+      <div class="about-image-col">
+        <img src="about.jpg" alt="About REVOOBIT Wellness" style="width:100%;height:400px;object-fit:cover;">
+      </div>
+      <div>
+        <div class="tag">Our Story</div>
+        <h2 class="section-title">Born from a Passion<br>for Wellness</h2>
+        <p style="color:var(--text-muted);line-height:1.8;margin-bottom:16px;">REVOOBIT Wellness Store was founded with a simple but powerful belief: everyone deserves access to high-quality, natural wellness products that truly work. We saw a gap in the Ghanaian market for premium, scientifically-backed supplements that combine the wisdom of nature with modern formulation expertise.</p>
+        <p style="color:var(--text-muted);line-height:1.8;margin-bottom:28px;">Our curated range of Miira products represents the pinnacle of wellness science — from cellular health to hormonal balance, from energy enhancement to natural beauty support. Every product we carry is rigorously selected to meet our high standards for quality, safety, and effectiveness.</p>
+        <button class="btn btn-primary" onclick="showPage('shop')">Explore Our Products</button>
+      </div>
+    </div>
+
+    <div class="mission-vision">
+      <div class="mv-card">
+        <div class="tag">Mission</div>
+        <h3 class="section-title">Our Mission</h3>
+        <p style="color:var(--text-muted);line-height:1.8;">To make premium wellness accessible to every Ghanaian by providing honest, effective, and natural health solutions that support a vibrant, energetic, and fulfilling life.</p>
+      </div>
+      <div class="mv-card">
+        <div class="tag">Vision</div>
+        <h3 class="section-title">Our Vision</h3>
+        <p style="color:var(--text-muted);line-height:1.8;">To become Ghana's most trusted wellness brand — a name synonymous with quality, integrity, and genuine care for our customers' health and wellbeing.</p>
+      </div>
+    </div>
+
+    <div style="padding:60px 0 0;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div class="tag">Our Values</div>
+        <h2 class="section-title" style="text-align:center;">The REVOOBIT Commitment</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card"><div class="value-icon">🌿</div><div class="value-title">Natural Purity</div><p class="value-text">We only offer products made with clean, natural ingredients free from harmful additives.</p></div>
+        <div class="value-card"><div class="value-icon">🔬</div><div class="value-title">Science-Backed</div><p class="value-text">Every product is formulated based on scientific research and clinical evidence.</p></div>
+        <div class="value-card"><div class="value-icon">❤️</div><div class="value-title">Customer First</div><p class="value-text">Your wellness and satisfaction are at the heart of everything we do.</p></div>
+        <div class="value-card"><div class="value-icon">✅</div><div class="value-title">Integrity</div><p class="value-text">We are transparent, honest, and accountable in all our business practices.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:80px;">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo"><div class="footer-logo-box">RW</div><span class="footer-logo-name">REVOOBIT Wellness</span></div>
+          <p class="footer-about">Your trusted partner in natural wellness.</p>
+        </div>
+        <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#" onclick="showPage('home')">Home</a></li><li><a href="#" onclick="showPage('shop')">Shop</a></li><li><a href="#" onclick="showPage('contact')">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">📱 +233 XX XXX XXXX</a></li><li><a href="#">✉️ info@revoobit.com</a></li></ul></div>
+        <div class="footer-col"><h4>Hours</h4><ul><li><a href="#">Mon-Fri: 8am – 6pm</a></li><li><a href="#">Sat: 9am – 4pm</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 REVOOBIT Wellness Store. All rights reserved.</p></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ====================================================
+     CONTACT PAGE
+     ==================================================== -->
+<div class="page" id="page-contact">
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span>Contact</span></div>
+      <h1>Contact Us</h1>
+      <p style="color:var(--text-muted);margin-top:6px;">We'd love to hear from you</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-form-card">
+        <div class="tag">Send a Message</div>
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="form-status" id="contactStatus"></div>
+        <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" id="ct_name" type="text" placeholder="Your full name"></div>
+        <div class="form-group"><label class="form-label">Email Address *</label><input class="form-input" id="ct_email" type="email" placeholder="you@email.com"></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" id="ct_phone" type="tel" placeholder="+233 XX XXX XXXX"></div>
+        <div class="form-group"><label class="form-label">Message *</label><textarea class="form-input" id="ct_message" rows="5" placeholder="How can we help you?" style="resize:vertical;"></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitContactForm()">Send Message</button>
+      </div>
+      <div class="contact-info-card">
+        <div class="tag">Contact Info</div>
+        <h2>We're Here to Help</h2>
+        <p style="color:var(--text-muted);margin-top:8px;line-height:1.7;">Have questions about our products? Want to place an order? Reach out to us via any channel below and we'll respond promptly.</p>
+        <div class="contact-info-items">
+          <div class="contact-info-row"><div class="contact-icon-box">📱</div><div class="contact-info-text"><strong>Phone / WhatsApp</strong><span>+233 XX XXX XXXX</span></div></div>
+          <div class="contact-info-row"><div class="contact-icon-box">✉️</div><div class="contact-info-text"><strong>Email</strong><span>info@revoobit.com</span></div></div>
+          <div class="contact-info-row"><div class="contact-icon-box">📍</div><div class="contact-info-text"><strong>Location</strong><span>Accra, Ghana</span></div></div>
+          <div class="contact-info-row"><div class="contact-icon-box">🕐</div><div class="contact-info-text"><strong>Business Hours</strong><span>Mon–Fri: 8am–6pm | Sat: 9am–4pm</span></div></div>
+        </div>
+        <a href="https://wa.me/233XXXXXXXXX?text=Hello%20REVOOBIT!" target="_blank" class="btn btn-whatsapp" style="width:100%;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+  <footer style="margin-top:60px;">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="footer-logo"><div class="footer-logo-box">RW</div><span class="footer-logo-name">REVOOBIT Wellness</span></div><p class="footer-about">Your trusted partner in natural wellness.</p></div>
+        <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#" onclick="showPage('home')">Home</a></li><li><a href="#" onclick="showPage('shop')">Shop</a></li><li><a href="#" onclick="showPage('about')">About</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">📱 +233 XX XXX XXXX</a></li><li><a href="#">✉️ info@revoobit.com</a></li></ul></div>
+        <div class="footer-col"></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 REVOOBIT Wellness Store. All rights reserved.</p></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ====================================================
+     JAVASCRIPT
+     ==================================================== -->
+<script>
+// ===================== PRODUCT DATA =====================
+const defaultProducts = [
+  {
+    id:'miira-cell-plus',
+    name:'Miira Cell Plus',
+    price:250,
+    category:'wellness',
+    tagline:'Advanced Cellular Regeneration',
+    badge:'Best Seller',
+    description:'Miira Cell Plus is a premium cellular health supplement scientifically formulated to support your body at the cellular level. Using advanced nano-technology, it delivers powerful antioxidants and essential nutrients directly to your cells, promoting regeneration, repair, and optimal function. Whether you are looking to slow aging, boost immunity, or simply feel more energetic, Miira Cell Plus provides comprehensive cellular support.',
+    benefits:['Supports cellular regeneration and repair','Boosts immune system function','Powerful antioxidant protection','Promotes anti-aging effects','Enhances energy production at the cellular level','Improves overall vitality and wellness']
+  },
+  {
+    id:'miira-life',
+    name:'Miira Life',
+    price:220,
+    category:'wellness',
+    tagline:'Complete Daily Wellness Supplement',
+    badge:'New',
+    description:'Miira Life is your all-in-one daily wellness formula, thoughtfully crafted to nourish your body with the complete spectrum of vitamins, minerals, and phytonutrients it needs to thrive. Designed for the modern individual who wants comprehensive health support in a single supplement, Miira Life fills nutritional gaps and supports every system in the body — from digestion to immunity, from energy to mental clarity.',
+    benefits:['Complete multivitamin and mineral support','Supports digestive health and gut microbiome','Boosts energy and reduces fatigue','Promotes mental clarity and focus','Supports cardiovascular health','Strengthens bones and joints']
+  },
+  {
+    id:'miira-coffee',
+    name:'Miira Coffee',
+    price:180,
+    category:'energy',
+    tagline:'Wellness-Infused Functional Coffee',
+    badge:'Popular',
+    description:'Miira Coffee is not your ordinary coffee. This premium functional beverage combines the rich, smooth taste of high-quality Arabica coffee with a powerful blend of adaptogenic herbs and wellness compounds. Each cup delivers not just a natural energy boost, but also cognitive enhancement, stress reduction, and metabolic support. Perfect for professionals, students, and anyone who wants to start their day with purpose and energy.',
+    benefits:['Natural energy boost without crashes','Enhances mental focus and cognitive performance','Contains adaptogenic herbs for stress relief','Supports healthy metabolism','Rich in antioxidants','Promotes sustained, clean energy throughout the day']
+  },
+  {
+    id:'miira-lanang',
+    name:'Miira Lanang',
+    price:280,
+    category:'wellness',
+    tagline:"Men's Vitality & Performance Formula",
+    badge:'For Men',
+    description:"Miira Lanang is a specialized men's health supplement formulated to support and optimize male vitality, strength, and performance. Drawing on time-tested natural herbs combined with modern nutritional science, Miira Lanang addresses the specific health needs of men — from testosterone support and physical endurance to reproductive health and emotional wellbeing. It is the complete solution for the modern man who wants to perform at his peak.",
+    benefits:['Supports healthy testosterone levels','Enhances physical strength and stamina','Improves reproductive health and fertility','Boosts libido and sexual performance','Supports prostate health','Promotes mental resilience and confidence']
+  },
+  {
+    id:'miira-wedok',
+    name:'Miira Wedok',
+    price:270,
+    category:'wellness',
+    tagline:"Women's Hormonal Balance & Vitality",
+    badge:'For Women',
+    description:"Miira Wedok is a comprehensive women's wellness formula carefully designed to support hormonal balance, reproductive health, and overall vitality throughout every stage of a woman's life. From managing PMS symptoms and supporting menstrual health to promoting glowing skin and emotional balance, Miira Wedok is the trusted companion for women who prioritize their health and wellbeing.",
+    benefits:["Supports women's hormonal balance",'Reduces PMS and menstrual discomfort','Promotes reproductive health','Enhances skin health and natural glow','Supports emotional balance and mood','Boosts energy and reduces fatigue in women']
+  },
+  {
+    id:'miira-curve',
+    name:'Miira Curve',
+    price:260,
+    category:'beauty',
+    tagline:'Natural Body Shaping & Weight Support',
+    badge:'Trending',
+    description:'Miira Curve is an innovative natural body shaping supplement designed to support healthy weight management and help you achieve your desired body composition. Unlike harsh diet pills, Miira Curve works gently with your body, using a synergistic blend of natural herbs and metabolic boosters to support fat metabolism, reduce cravings, and promote a toned, healthy physique. It is the smart approach to body wellness.',
+    benefits:['Supports healthy weight management','Boosts metabolism naturally','Reduces cravings and appetite','Promotes fat metabolism','Helps achieve desired body shape','Supports energy levels during weight management']
+  },
+  {
+    id:'miira-phyll',
+    name:'Miira Phyll',
+    price:200,
+    category:'wellness',
+    tagline:'Nature\'s Chlorophyll Detox Formula',
+    badge:'Detox',
+    description:"Miira Phyll harnesses the extraordinary power of chlorophyll — nature's master detoxifier — in a premium, highly bioavailable formula. This remarkable supplement supports your body's natural detoxification pathways, alkalizes your system, and promotes internal cleansing at a cellular level. Rich in essential nutrients and phytochemicals, Miira Phyll revitalizes your entire system from the inside out, leaving you feeling clean, refreshed, and energized.",
+    benefits:['Powerful internal detoxification','Alkalizes the body for optimal pH balance','Supports liver and kidney function','Promotes healthy blood and circulation','Rich in natural phytonutrients','Boosts energy and reduces body odor naturally']
+  }
+];
+
+// ===================== STATE =====================
+let cart = JSON.parse(localStorage.getItem('revoobit_cart')||'[]');
+let selectedPayment = '';
+
+function getProducts(){
+  const stored = localStorage.getItem('revoobit_products');
+  return stored ? JSON.parse(stored) : defaultProducts;
+}
+
+function saveCart(){
+  localStorage.setItem('revoobit_cart',JSON.stringify(cart));
+  updateCartCount();
+}
+
+function updateCartCount(){
+  const total = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent = total;
+}
+
+// ===================== TOAST =====================
+function showToast(msg,type='success'){
+  const t = document.getElementById('toast');
+  t.textContent = (type==='success'?'✓  ':'')+msg;
+  t.className = 'toast show '+(type==='success'?'success':'');
+  setTimeout(()=>{t.classList.remove('show');},3000);
+}
+
+// ===================== NAVIGATION =====================
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el = document.getElementById('page-'+page);
+  if(el){
+    el.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  // update nav active
+  document.querySelectorAll('[data-page]').forEach(a=>{
+    a.classList.toggle('active', a.dataset.page===page);
+  });
+  // page init
+  if(page==='shop') renderShopProducts();
+  if(page==='cart') renderCart();
+  if(page==='checkout') renderCheckout();
+}
+
+// ===================== HAMBURGER =====================
+document.getElementById('hamburger').addEventListener('click',function(){
+  const m = document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+});
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ===================== NAVBAR SCROLL =====================
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30);
+});
+
+// ===================== PRODUCT CARD HTML =====================
+function productCardHTML(p, context='shop'){
+  return `
+  <div class="product-card" data-category="${p.category}">
+    <div class="product-img-wrap">
+      <img src="${p.id}.jpg" alt="${p.name}">
+      ${p.badge?`<div class="product-badge">${p.badge}</div>`:''}
+    </div>
+    <div class="product-body">
+      <div class="product-name">${p.name}</div>
+      <div class="product-tagline">${p.tagline||''}</div>
+      <div class="product-price">GH₵ ${p.price.toFixed(2)} <span>/ Pack</span></div>
+      <div class="product-actions">
+        <button class="btn view-btn btn-sm" onclick="showProductDetail('${p.id}')">View Details</button>
+        <button class="btn add-cart-btn btn-sm" onclick="addToCart('${p.id}')">Add to Cart</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ===================== HOME FEATURED =====================
+function renderHomeFeatured(){
+  const products = getProducts();
+  const el = document.getElementById('homeFeaturedProducts');
+  if(el) el.innerHTML = products.map(p=>productCardHTML(p,'home')).join('');
+}
+
+// ===================== SHOP =====================
+function renderShopProducts(filter='all'){
+  const products = getProducts();
+  const el = document.getElementById('shopProductGrid');
+  if(!el) return;
+  const filtered = filter==='all' ? products : products.filter(p=>p.category===filter);
+  el.innerHTML = filtered.length ? filtered.map(p=>productCardHTML(p,'shop')).join('') : '<p style="color:var(--text-muted);padding:40px 0;">No products found.</p>';
+}
+
+function filterShop(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderShopProducts(cat);
+}
+
+// ===================== PRODUCT DETAIL =====================
+function showProductDetail(id){
+  // Hide all detail panels
+  document.querySelectorAll('[id^="detail-"]').forEach(el=>el.style.display='none');
+  // Show the matching one
+  const panel = document.getElementById('detail-'+id);
+  if(panel) panel.style.display='block';
+  // Update breadcrumb
+  const names = {
+    'miira-cell-plus':'Miira Cell Plus','miira-life':'Miira Life',
+    'miira-coffee':'Miira Coffee','miira-lanang':'Miira Lanang',
+    'miira-wedok':'Miira Wedok','miira-curve':'Miira Curve','miira-phyll':'Miira Phyll'
+  };
+  document.getElementById('detailBreadcrumb').textContent = names[id]||id;
+  showPage('product-detail');
+}
+
+function changeDetailQty(delta){
+  const inp = document.getElementById('detailQty');
+  if(!inp) return;
+  let v = parseInt(inp.value)||1;
+  v = Math.max(1, Math.min(99, v+delta));
+  inp.value = v;
+}
+
+function addToCartFromDetail(id){
+  const qty = parseInt(document.getElementById('detailQty')?.value)||1;
+  addToCart(id, qty);
+}
+
+// ===================== CART FUNCTIONS =====================
+function addToCart(id, qty=1){
+  const products = getProducts();
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const existing = cart.find(x=>x.id===id);
+  if(existing){ existing.qty += qty; }
+  else { cart.push({id:p.id,name:p.name,price:p.price,qty}); }
+  saveCart();
+  showToast(`${p.name} added to cart!`);
+}
+
+function removeFromCart(id){
+  cart = cart.filter(x=>x.id!==id);
+  saveCart();
+  renderCart();
+}
+
+function changeCartQty(id, delta){
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty = Math.max(1, item.qty+delta);
+  saveCart();
+  renderCart();
+}
+
+function renderCart(){
+  const el = document.getElementById('cartContent');
+  if(!el) return;
+  if(!cart.length){
+    el.innerHTML = `
+      <div class="empty-cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added any products yet.</p>
+        <button class="btn btn-primary" onclick="showPage('shop')">Browse Products</button>
+      </div>`;
+    return;
+  }
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  el.innerHTML = `
+    <div class="cart-layout">
+      <div>
+        <div class="cart-items-list">
+          ${cart.map(item=>`
+          <div class="cart-item">
+            <div class="cart-item-img">
+              <img src="${item.id}.jpg" alt="${item.name}">
+            </div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-price">GH₵ ${(item.price*item.qty).toFixed(2)}</div>
+              <div class="cart-item-qty">
+                <button onclick="changeCartQty('${item.id}',-1)">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeCartQty('${item.id}',1)">+</button>
+              </div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart('${item.id}')" title="Remove">✕</button>
+          </div>`).join('')}
+        </div>
+        <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="showPage('shop')">← Continue Shopping</button>
+        </div>
+      </div>
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        ${cart.map(i=>`<div class="summary-row"><span>${i.name} × ${i.qty}</span><span>GH₵ ${(i.price*i.qty).toFixed(2)}</span></div>`).join('')}
+        <div class="summary-row"><span>Subtotal</span><span>GH₵ ${subtotal.toFixed(2)}</span></div>
+        <div class="summary-row"><span>Delivery</span><span style="color:var(--primary);font-weight:600;">Free</span></div>
+        <div class="summary-row total"><span>Total</span><span>GH₵ ${subtotal.toFixed(2)}</span></div>
+        <div class="cart-actions">
+          <button class="btn btn-primary" style="justify-content:center;" onclick="showPage('checkout')">Proceed to Checkout →</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ===================== CHECKOUT =====================
+function renderCheckout(){
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const itemsEl = document.getElementById('checkoutSummaryItems');
+  if(itemsEl) itemsEl.innerHTML = cart.map(i=>`<div class="checkout-item"><span class="checkout-item-name">${i.name} × ${i.qty}</span><span class="checkout-item-price">GH₵ ${(i.price*i.qty).toFixed(2)}</span></div>`).join('');
+  const subEl = document.getElementById('coSubtotal');
+  const totEl = document.getElementById('coTotal');
+  if(subEl) subEl.textContent = `GH₵ ${subtotal.toFixed(2)}`;
+  if(totEl) totEl.textContent = `GH₵ ${subtotal.toFixed(2)}`;
+}
+
+function selectPayment(el, method){
+  document.querySelectorAll('.payment-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPayment = method;
+}
+
+function placeOrder(){
+  const name = document.getElementById('co_name')?.value.trim();
+  const phone = document.getElementById('co_phone')?.value.trim();
+  const address = document.getElementById('co_address')?.value.trim();
+  const city = document.getElementById('co_city')?.value.trim();
+  const region = document.getElementById('co_region')?.value;
+  if(!name||!phone||!address||!city||!region){
+    showToast('Please fill in all required fields.','error');
+    return;
+  }
+  if(!selectedPayment){
+    showToast('Please select a payment method.','error');
+    return;
+  }
+  if(!cart.length){
+    showToast('Your cart is empty.','error');
+    return;
+  }
+  // Success
+  const ref = 'RVB-'+Date.now().toString().slice(-8).toUpperCase();
+  document.getElementById('orderRef').textContent = ref;
+  document.getElementById('checkoutFormSection').style.display = 'none';
+  const success = document.getElementById('orderSuccess');
+  success.classList.add('visible');
+  cart = [];
+  saveCart();
+}
+
+// ===================== CONTACT FORM =====================
+function submitContactForm(){
+  const name = document.getElementById('ct_name')?.value.trim();
+  const email = document.getElementById('ct_email')?.value.trim();
+  const message = document.getElementById('ct_message')?.value.trim();
+  const status = document.getElementById('contactStatus');
+  if(!name||!email||!message){
+    status.textContent = 'Please fill in all required fields.';
+    status.className = 'form-status error';
+    return;
+  }
+  status.textContent = '✓ Message sent! We will get back to you shortly.';
+  status.className = 'form-status success';
+  document.getElementById('ct_name').value='';
+  document.getElementById('ct_email').value='';
+  document.getElementById('ct_phone').value='';
+  document.getElementById('ct_message').value='';
+}
+
+// ===================== SCROLL ANIMATIONS =====================
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.animate-on-scroll').forEach(el=>observer.observe(el));
+
+// ===================== INIT =====================
+updateCartCount();
+</script>
+</body>
+</html>
