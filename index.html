@@ -929,17 +929,6 @@
     .payment-option input[type="radio"] { accent-color: var(--green-mid); width: 18px; height: 18px; }
     .payment-option-label { font-weight: 500; font-size: .92rem; color: var(--black); }
     .payment-option-desc { font-size: .78rem; color: var(--gray-600); margin-top: 2px; }
-    .paystack-section {
-      background: var(--green-mist);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      margin-top: 16px;
-      font-size: .82rem;
-      color: var(--green-deep);
-      display: none;
-    }
-    .paystack-section.show { display: block; }
-    .paystack-note { font-weight: 600; margin-bottom: 4px; }
     .checkout-summary {
       background: var(--white);
       border: 1px solid var(--gray-200);
@@ -1569,29 +1558,13 @@
           <div class="checkout-section">
             <div class="checkout-section-title">💳 Payment Method</div>
             <div class="payment-options">
-              <label class="payment-option selected" id="payOption-paystack" onclick="selectPayment('paystack')">
-                <input type="radio" name="payment" value="paystack" checked />
-                <div>
-                  <div class="payment-option-label">🔐 Pay Online (Paystack)</div>
-                  <div class="payment-option-desc">Pay securely with card, mobile money, or bank transfer</div>
-                </div>
-              </label>
-              <label class="payment-option" id="payOption-cod" onclick="selectPayment('cod')">
-                <input type="radio" name="payment" value="cod" />
+              <label class="payment-option selected" id="payOption-cod">
+                <input type="radio" name="payment" value="cod" checked readonly />
                 <div>
                   <div class="payment-option-label">💵 Cash on Delivery</div>
                   <div class="payment-option-desc">Pay cash when your order arrives at your doorstep</div>
                 </div>
               </label>
-            </div>
-
-            <!-- ============================================================
-                 PAYSTACK INTEGRATION PLACEHOLDER
-                 Replace with your actual Paystack credentials when ready.
-            ============================================================ -->
-            <div class="paystack-section show" id="paystackSection">
-              <div class="paystack-note">🔒 Secure Online Payment via Paystack</div>
-              <div>You will be redirected to Paystack's secure payment gateway to complete your transaction.</div>
             </div>
           </div>
         </div>
@@ -1909,17 +1882,6 @@
 
     DELIVERY_FEE: 30,
     CURRENCY: 'GHS',
-
-    // ===========================================================
-    // PAYSTACK INTEGRATION
-    // Insert your Paystack Public Key below when ready.
-    // Steps:
-    //   1. Go to https://dashboard.paystack.com
-    //   2. Copy your Public Key (starts with pk_live_ or pk_test_)
-    //   3. Replace the empty string below
-    //   4. Implement the Paystack inline handler in placeOrder()
-    // ===========================================================
-    PAYSTACK_PUBLIC_KEY: '', // <-- INSERT YOUR PAYSTACK PUBLIC KEY HERE
   };
 
   /* ============================================================
@@ -1932,8 +1894,8 @@
       name: 'Miira Cell Plus',
       slug: 'miira-cell-plus',
       category: 'Cell Health',
-      price: 450,
-      originalPrice: 520,
+      price: 700,
+      originalPrice: null,
       image: 'miira-cell-plus.jpg',
       images: ['miira-cell-plus.jpg','miira-cell-plus.jpg','miira-cell-plus.jpg'],
       badge: 'Bestseller',
@@ -1959,7 +1921,7 @@
       name: 'Miira Life',
       slug: 'miira-life',
       category: 'General Wellness',
-      price: 380,
+      price: 700,
       originalPrice: null,
       image: 'miira-life.jpg',
       images: ['miira-life.jpg','miira-life.jpg'],
@@ -1986,8 +1948,8 @@
       name: 'Miira Coffee',
       slug: 'miira-coffee',
       category: 'Energy & Performance',
-      price: 290,
-      originalPrice: 320,
+      price: 550,
+      originalPrice: null,
       image: 'miira-coffee.jpg',
       images: ['miira-coffee.jpg','miira-coffee.jpg'],
       badge: 'Popular',
@@ -2013,8 +1975,8 @@
       name: 'Miira Lanang',
       slug: 'miira-lanang',
       category: "Men's Health",
-      price: 420,
-      originalPrice: 480,
+      price: 400,
+      originalPrice: null,
       image: 'miira-lanang.jpg',
       images: ['miira-lanang.jpg','miira-lanang.jpg'],
       badge: 'For Men',
@@ -2067,8 +2029,8 @@
       name: 'Miira Curve',
       slug: 'miira-curve',
       category: 'Weight Management',
-      price: 350,
-      originalPrice: 400,
+      price: 700,
+      originalPrice: null,
       image: 'miira-curve.jpg',
       images: ['miira-curve.jpg','miira-curve.jpg'],
       badge: 'Trending',
@@ -2094,7 +2056,7 @@
       name: 'Miira Phyll',
       slug: 'miira-phyll',
       category: 'Detox & Cleanse',
-      price: 310,
+      price: 400,
       originalPrice: null,
       image: 'miira-phyll.jpg',
       images: ['miira-phyll.jpg','miira-phyll.jpg'],
@@ -2136,7 +2098,7 @@
   const FAQS = [
     { q: 'Are REVOOBIT products authentic and safe?', a: 'Absolutely. All REVOOBIT products are 100% authentic, sourced directly from authorised distributors. Every product is manufactured in certified facilities and undergoes rigorous quality testing before reaching you.' },
     { q: 'How long does delivery take?', a: 'We deliver nationwide across Ghana. Orders within Accra and surrounding areas are typically delivered within 1–2 business days. Orders to other regions take 2–4 business days depending on your location.' },
-    { q: 'What are your payment options?', a: 'We accept online payments through Paystack (mobile money, bank cards, bank transfer) and Cash on Delivery. For Cash on Delivery, payment is made when your order arrives at your doorstep.' },
+    { q: 'What are your payment options?', a: 'We currently accept Cash on Delivery. Payment is made when your order arrives at your doorstep.' },
     { q: 'Can I return a product if I\'m not satisfied?', a: 'We want you to be completely happy with your purchase. If you receive a damaged or incorrect product, please contact us within 48 hours of delivery via WhatsApp or email and we will arrange a replacement or refund.' },
     { q: 'Are these products suitable for everyone?', a: 'Our products are designed for healthy adults. Some products have specific target audiences (e.g., Miira Lanang for men, Miira Wedok for women). If you are pregnant, breastfeeding, or have any medical conditions, please consult your healthcare provider before use.' },
     { q: 'How do I know which product is right for me?', a: 'You can browse our product descriptions to find the best fit for your wellness goals. For personalised recommendations, feel free to contact us on WhatsApp — our team is happy to guide you.' },
@@ -2165,7 +2127,7 @@
   let cart = JSON.parse(localStorage.getItem('revoobit_cart') || '[]');
   let currentPage = 'home';
   let currentProduct = null;
-  let selectedPayment = 'paystack';
+  let selectedPayment = 'cod';
   let shopFilters = { category: 'all', maxPrice: 1000, sort: 'default' };
 
   /* ============================================================
@@ -2663,18 +2625,6 @@
   }
 
   /* ============================================================
-     PAYMENT SELECTION
-     ============================================================ */
-  function selectPayment(method) {
-    selectedPayment = method;
-    document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
-    const chosen = document.getElementById('payOption-' + method);
-    if (chosen) chosen.classList.add('selected');
-    const paystackSection = document.getElementById('paystackSection');
-    if (paystackSection) paystackSection.classList.toggle('show', method === 'paystack');
-  }
-
-  /* ============================================================
      FORM VALIDATION
      ============================================================ */
   function validateCheckout() {
@@ -2719,14 +2669,9 @@
     const subtotal = getCartTotal();
     const total = subtotal + CONFIG.DELIVERY_FEE;
 
-    if (selectedPayment === 'cod') {
-      // Cash on Delivery → WhatsApp
-      sendOrderViaWhatsApp({ name, phone, email, address, city, region, notes, orderRef, subtotal, total, paymentMethod: 'Cash on Delivery', paymentStatus: 'Cash on Delivery' });
-      completeOrder(orderRef, name, total, 'Cash on Delivery');
-    } else {
-      // Online Payment → Paystack
-      initiatePaystackPayment({ name, phone, email, address, city, region, notes, orderRef, subtotal, total });
-    }
+    // Cash on Delivery → WhatsApp
+    sendOrderViaWhatsApp({ name, phone, email, address, city, region, notes, orderRef, subtotal, total, paymentMethod: 'Cash on Delivery', paymentStatus: 'Cash on Delivery' });
+    completeOrder(orderRef, name, total, 'Cash on Delivery');
   }
 
   /* ============================================================
@@ -2779,78 +2724,6 @@ Thank you for shopping with REVOOBIT! 🌿`;
     // Replace CONFIG.WHATSAPP_NUMBER with your actual number
     // ===========================================================
     window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-  }
-
-  /* ============================================================
-     PAYSTACK INTEGRATION
-     ============================================================
-     Steps to activate:
-       1. Add your Paystack Public Key to CONFIG.PAYSTACK_PUBLIC_KEY
-       2. Include Paystack inline script in <head>:
-          <script src="https://js.paystack.co/v1/inline.js"><\/script>
-       3. Uncomment and complete the handler below
-     ============================================================ */
-  function initiatePaystackPayment(orderData) {
-    const total = orderData.total;
-    const amountInKobo = Math.round(total * 100); // Paystack uses kobo (Ghana: pesewas)
-
-    // ===========================================================
-    // PAYSTACK PAYMENT HANDLER
-    // Uncomment and configure the block below when you have your
-    // Paystack Public Key inserted in CONFIG.PAYSTACK_PUBLIC_KEY
-    // ===========================================================
-
-    /*
-    if (!CONFIG.PAYSTACK_PUBLIC_KEY) {
-      showToast('Paystack is not configured yet.', 'error');
-      return;
-    }
-
-    const handler = PaystackPop.setup({
-      key: CONFIG.PAYSTACK_PUBLIC_KEY,         // Your Paystack Public Key
-      email: orderData.email || 'customer@revoobit.com',
-      amount: amountInKobo,                    // Amount in pesewas for GHS
-      currency: 'GHS',                         // Currency code
-      ref: orderData.orderRef,                 // Unique transaction reference
-      metadata: {
-        custom_fields: [
-          { display_name: 'Customer Name',  variable_name: 'customer_name',  value: orderData.name },
-          { display_name: 'Phone Number',   variable_name: 'phone',          value: orderData.phone },
-          { display_name: 'Delivery City',  variable_name: 'city',           value: orderData.city },
-        ]
-      },
-      callback: function(response) {
-        // Payment successful
-        const paymentRef = response.reference;
-        const name    = orderData.name;
-        const phone   = orderData.phone;
-        const email   = orderData.email;
-        const address = orderData.address;
-        const city    = orderData.city;
-        const region  = orderData.region;
-        const notes   = orderData.notes;
-        const orderRef = orderData.orderRef;
-        const subtotal = orderData.subtotal;
-        const total    = orderData.total;
-
-        sendOrderViaWhatsApp({
-          name, phone, email, address, city, region, notes,
-          orderRef, subtotal, total,
-          paymentMethod: 'Online Payment (Paystack)',
-          paymentStatus: 'PAID',
-          paymentRef,
-        });
-        completeOrder(orderRef, name, total, 'Online Payment (Paystack)');
-      },
-      onClose: function() {
-        showToast('Payment window closed. Your order was not placed.', 'error');
-      }
-    });
-    handler.openIframe();
-    */
-
-    // Temporary fallback while Paystack is not configured:
-    showToast('Paystack is not yet configured. Please select Cash on Delivery or contact us on WhatsApp.', 'error');
   }
 
   /* ============================================================
@@ -2921,7 +2794,7 @@ Thank you for shopping with REVOOBIT! 🌿`;
         <li>Full name and contact information (phone number, email address)</li>
         <li>Delivery address and regional information</li>
         <li>Order history and purchase details</li>
-        <li>Payment information (processed securely via Paystack — we do not store card details)</li>
+        <li>Order and delivery payment details (Cash on Delivery — we do not process or store online card payment information)</li>
       </ul>
 
       <h2>2. How We Use Your Information</h2>
@@ -2938,7 +2811,7 @@ Thank you for shopping with REVOOBIT! 🌿`;
       <p>We do not sell, trade, or rent your personal information to third parties. We may share your information with trusted delivery partners solely for the purpose of delivering your order.</p>
 
       <h2>4. Data Security</h2>
-      <p>We implement appropriate technical and organisational security measures to protect your personal data. All online payments are processed securely through Paystack's PCI-DSS compliant platform.</p>
+      <p>We implement appropriate technical and organisational security measures to protect your personal data.</p>
 
       <h2>5. WhatsApp Communication</h2>
       <p>When you choose to place an order or contact us via WhatsApp, your messages are processed by WhatsApp (Meta). We use WhatsApp solely for order communication and customer support.</p>
@@ -2975,7 +2848,6 @@ Thank you for shopping with REVOOBIT! 🌿`;
       <h2>3. Orders and Payment</h2>
       <ul>
         <li>Orders are subject to confirmation and acceptance by REVOOBIT</li>
-        <li>Online payments are processed securely via Paystack</li>
         <li>Cash on Delivery orders must be paid in full upon receipt</li>
         <li>We reserve the right to cancel orders in cases of pricing errors or stock unavailability</li>
       </ul>
